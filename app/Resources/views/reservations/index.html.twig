@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <div class="row">
+      <div class="medium-12 large-12 columns">
+        <h4>Reservations</h4>
+
+        <table class="stack">
+          <thead>
+            <tr>
+              <th width="200">ROOM</th>
+              <th width="200">Name</th>
+              <th width="200">DATES</th>
+              <th width="200">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr>
+              <td></td>
+              <td></td>
+              <td></td>
+              <td>
+                <a class="hollow button alert" href="#" onclick="return confirm('Are you sure you wish to cancel the reservation?')">CANCEL</a>
+              </td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+{% endblock %}
