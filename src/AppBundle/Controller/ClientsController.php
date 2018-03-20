@@ -32,6 +32,11 @@ class ClientsController extends Controller
      */
     public function showDetails(Request $request, $id_client)
     {
+        //Just for using voter
+        $client = $this->getDoctrine()
+            ->getRepository('AppBundle:Client')
+            ->find($id_client);
+
         $data = [];
         //$data['clients'] = $this->client_data;
         //Get data from repository or database
@@ -98,8 +103,12 @@ class ClientsController extends Controller
             //Get titles from titles array above
             $client_data['titles'] = $this->titles;
 
+            //Store data in an array, so it can be accessed with form.name, form.address, etc
             $data['form'] = $client_data;
         }
+
+        //Implementing voter
+        $this->denyAccessUnlessGranted('edit', $client);
 
         return $this->render('clients/form.html.twig', $data);
     }
