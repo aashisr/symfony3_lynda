@@ -14,6 +14,8 @@ services:
             - {name: security.voter}
         public: false
 
+    #This is for using the entity manager in ReservationType.php
+    #It is not used now
     app.constructor:
         class: AppBundle\Form\Type\ReservationType
         arguments: [ '@doctrine.orm.entity_manager']

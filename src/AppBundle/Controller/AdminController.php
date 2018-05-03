@@ -2,6 +2,10 @@
 
 namespace AppBundle\Controller;
 
+require_once 'C:/xampp/htdocs/_symfony3_lynda/vendor/autoload.php';
+//include_once 'C:/xampp/htdocs/_symfony3_lynda/Script/test.php';
+
+
 use AppBundle\Form\Type\ReservationType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
@@ -9,6 +13,10 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use AppBundle\Entity\Reservation;
+use Symfony\Component\Process\PhpExecutableFinder;
+use Symfony\Component\Process\PhpProcess;
+use Symfony\Component\Process\Process;
+use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class AdminController extends Controller
 {
@@ -30,7 +38,24 @@ class AdminController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            dump($form->getData()); die();
+            echo "Submitted";
+
+            $process = new Process('C:/xampp/htdocs/_symfony3_lynda/Script/test.php');
+
+            try {
+                $process->run();
+                return  $process->getOutput();
+            } catch (ProcessFailedException $e) {
+                return $e->getMessage();
+            }
+
+            // executes after the command finishes
+/*            if (!$process->isSuccessful()) {
+                throw new ProcessFailedException($process);
+            }
+
+            echo $process->getOutput();*/
+
         }
 
         return $this->render(':reservations:clientReservation.html.twig', array(
