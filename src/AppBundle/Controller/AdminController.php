@@ -40,21 +40,23 @@ class AdminController extends Controller
         if ($form->isSubmitted() && $form->isValid()) {
             echo "Submitted";
 
-            $process = new Process('C:/xampp/htdocs/_symfony3_lynda/Script/test.php');
+            $process = new Process('C:\xampp\php\php.exe C:/xampp/htdocs/_symfony3_lynda/Script/test.php');
 
-            try {
+            $process->run();
+
+            /*try {
                 $process->run();
                 return  $process->getOutput();
             } catch (ProcessFailedException $e) {
                 return $e->getMessage();
-            }
+            }*/
 
             // executes after the command finishes
-/*            if (!$process->isSuccessful()) {
+            if (!$process->isSuccessful()) {
                 throw new ProcessFailedException($process);
             }
 
-            echo $process->getOutput();*/
+            echo $process->getOutput();
 
         }
 
