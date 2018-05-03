@@ -13,3 +13,9 @@ services:
         tags:
             - {name: security.voter}
         public: false
+
+    app.constructor:
+        class: AppBundle\Form\Type\ReservationType
+        arguments: [ '@doctrine.orm.entity_manager']
+        tags:
+            - {name: form.type}

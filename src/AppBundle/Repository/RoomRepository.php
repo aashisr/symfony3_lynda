@@ -65,4 +65,18 @@ class RoomRepository extends \Doctrine\ORM\EntityRepository
             return null;
         }
     }
+
+    public function findRoomsByClient($client){
+        $query = $this->getEntityManager()->createQueryBuilder()
+            ->select('r')
+            ->from('AppBundle:Room','r')
+            ->innerJoin('AppBundle:Reservation','re', 'WITH', 'r.id = re.room')
+            ->innerJoin('AppBundle:Client','c','WITH','c.id = re.client')
+            ->where('c.id = :client')
+            ->setParameter('client', $client)
+            ->getQuery()
+        ;
+
+        return $query->getResult();
+    }
 }
