@@ -3,8 +3,6 @@
 namespace AppBundle\Controller;
 
 require_once 'C:/xampp/htdocs/_symfony3_lynda/vendor/autoload.php';
-//include_once 'C:/xampp/htdocs/_symfony3_lynda/Script/test.php';
-
 
 use AppBundle\Form\Type\ReservationType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -33,14 +31,22 @@ class AdminController extends Controller
     public function createReservation(Request $request) {
         $reservation = new Reservation();
         $form = $this->createForm(ReservationType::class, $reservation, array(
-            'em' => $this->getDoctrine()->getEntityManager()
+            'em' => $this->getDoctrine()->getManager()
         ));
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             echo "Submitted";
 
-            $process = new Process('C:\xampp\php\php.exe C:/xampp/htdocs/_symfony3_lynda/Script/test.php');
+            //Finds the php executable path
+            //In this case, it is C:\xampp\php\php.exe
+            $phpBinaryFinder = new PhpExecutableFinder();
+            $phpBinaryPath = $phpBinaryFinder->find();
+
+            //echo $phpBinaryPath;
+            //echo __DIR__ . '/../../../Script/test.php';
+
+            $process = new Process("{$phpBinaryPath} ". __DIR__ . '/../../../Script/test.php');
 
             $process->run();
 
