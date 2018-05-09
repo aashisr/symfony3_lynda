@@ -2,7 +2,7 @@
 
 namespace AppBundle\Controller;
 
-require_once 'C:/xampp/htdocs/_symfony3_lynda/vendor/autoload.php';
+require_once __DIR__ . '/../../../vendor/autoload.php';
 
 use AppBundle\Form\Type\ReservationType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -36,7 +36,7 @@ class AdminController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            echo "Submitted";
+            echo "Submitted ";
 
             //Finds the php executable path
             //In this case, it is C:\xampp\php\php.exe
@@ -48,14 +48,9 @@ class AdminController extends Controller
 
             $process = new Process("{$phpBinaryPath} ". __DIR__ . '/../../../Script/test.php');
 
-            $process->run();
-
-            /*try {
-                $process->run();
-                return  $process->getOutput();
-            } catch (ProcessFailedException $e) {
-                return $e->getMessage();
-            }*/
+            $process->start();
+            echo "Process started ";
+            $process->wait();
 
             // executes after the command finishes
             if (!$process->isSuccessful()) {
@@ -63,6 +58,7 @@ class AdminController extends Controller
             }
 
             echo $process->getOutput();
+            echo "Process finished ";
 
         }
 
